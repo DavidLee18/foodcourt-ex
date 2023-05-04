@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "foodcourt--junsu": {
+      "hosting": {
+        "foodcourt-ex": [
+          "foodcourt--junsu"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "foodcourt--junsu"
+  }
+}
