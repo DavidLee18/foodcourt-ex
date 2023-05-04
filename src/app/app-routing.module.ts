@@ -19,11 +19,12 @@ const loggedIn: CanActivateFn = (next, state) => {
 
 const routes: Route[] = [
   { path: 'login', component: LoginComponent },
-  { path: 'signUp', component: SignUpComponent },
+  { path: 'sign-up', component: SignUpComponent },
   { path: 'owner/register', component: OwnerRegisterComponent },
-  { path: 'shops', component: ShopsComponent, canActivate: [loggedIn] },
-  { path: 'shops/:id/foods', component: ShopFoodsComponent, canActivate: [loggedIn] },
-  { path: 'shops/:id/order', component: OrderComponent, canActivate: [loggedIn] },
+  { path: 'shops', component: ShopsComponent, canActivate: [loggedIn], children: [
+    { path: ':id/foods', component: ShopFoodsComponent },
+    { path: ':id/order', component: OrderComponent },
+  ] },
   { path: 'owner/orders', component: OwnerOrdersComponent, canActivate: [loggedIn] },
   { path: '**', redirectTo: 'login' }
 ];

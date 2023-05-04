@@ -1,1 +1,23 @@
-<p>login works!</p>
+<form [formGroup]="form" (ngSubmit)="login()">
+    <mat-form-field>
+        <mat-label>e-mail</mat-label>
+        <input matInput type="email" formControlName="id" required>
+        <ng-template *ngIf="form.get('id')?.invalid">
+            <mat-error *ngIf="form.get('id')?.errors?.['required']">값을 입력해 주세요</mat-error>
+            <mat-error *ngIf="form.get('id')?.errors?.['email']">올바른 e-mail을 입력해 주세요</mat-error>
+        </ng-template>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>PW</mat-label>
+        <input [type]="hide ? 'password' : 'text'" formControlName="pw" matInput required>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <ng-template *ngIf="form.get('pw')?.invalid">
+            <mat-error *ngIf="form.get('pw')?.errors?.['required']">값을 입력해 주세요</mat-error>
+            <mat-error *ngIf="form.get('pw')?.errors?.['minlength']">비밀번호는 최소 10자리입니다</mat-error>
+        </ng-template>
+    </mat-form-field>
+    <button type="submit" mat-raised-button [disabled]="form.invalid || form.untouched" color="accent">로그인</button>
+    <button mat-button [routerLink]="'/sign-up'">회원가입</button>
+</form>
