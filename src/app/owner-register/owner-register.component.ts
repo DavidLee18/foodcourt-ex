@@ -50,7 +50,7 @@ export class OwnerRegisterComponent {
 
     let uid = cred.user.uid;
 
-    await setDoc(doc(this.firestore, 'owners', `${uid}`), {
+    await setDoc(doc(this.firestore, 'owners', uid), {
       name: this.form.get('name')?.value,
       birth: this.form.get('birth')?.value?.toISOString().split('T')[0],
       addr: this.form.get('addr')?.value,

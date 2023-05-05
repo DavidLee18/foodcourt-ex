@@ -1,1 +1,5 @@
-<p>shops works!</p>
+<mat-list>
+    <a *ngFor="let shop of shops | async" mat-list-item [routerLink]="'/shops/' + shop.ownerId + '/foods'">
+        {{ shop.name }}
+    </a>
+</mat-list>

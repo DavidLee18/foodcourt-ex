@@ -8,6 +8,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card'
+import { MatTableModule } from '@angular/material/table'
+import { MatExpansionModule } from '@angular/material/expansion'
 
 
 @NgModule({
@@ -22,6 +25,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
+    MatCardModule,
+    MatTableModule,
+    MatExpansionModule,
   ]
 })
 export class MaterialModule {}

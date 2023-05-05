@@ -1,1 +1,15 @@
-<p>owner-orders works!</p>
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let orderDoc of orderDocs | async">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+              주문번호 {{ orderDoc.id }}
+            </mat-panel-title>
+            <mat-panel-description>
+              주문 일시: {{ orderDoc.get('when') | date }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>
+            {{ orderDoc.data() | json }}
+          </p>
+    </mat-expansion-panel>
+</mat-accordion>

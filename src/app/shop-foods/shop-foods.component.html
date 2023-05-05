@@ -1,1 +1,21 @@
-<p>shop-foods works!</p>
+<form *ngIf="!orderComplete" formArrayName="form" (ngSubmit)="confirmOrder()">
+    <mat-list>
+        <mat-list-item *ngFor="let food of foods | async; let i = index">
+            {{ food.name }} (₩ {{ food.price }})
+            <mat-form-field>
+                <mat-label>주문할 수량</mat-label>
+                <input matInput type="number" min="0" [formControl]="stripUndefined(form?.at(i))">
+                <ng-template *ngIf="form?.at(i)?.invalid">
+                    <mat-error *ngIf="form?.at(i)?.errors?.['min']">최소 주문 수량은 0입니다</mat-error>
+                    <mat-error *ngIf="form?.errors?.['atLeastOne']">적어도 하나의 음식을 주문해야 합니다</mat-error>
+                </ng-template>
+            </mat-form-field>
+        </mat-list-item>
+    </mat-list>
+    <button mat-raised-button color="accent" type="submit" [disabled]="form?.invalid || form?.untouched">주문하기</button>
+    <button mat-button type="reset" [disabled]="form?.untouched">초기화</button>
+</form>
+<div *ngIf="orderComplete">
+    <h2>주문 완료</h2>
+    <h4>주문이 접수되어 음식을 제작 중입니다!</h4>
+</div>
