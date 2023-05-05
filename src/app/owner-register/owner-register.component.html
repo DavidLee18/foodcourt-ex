@@ -2,35 +2,26 @@
     <mat-form-field>
         <mat-label>이름</mat-label>
         <input matInput formControlName="name" required>
-        <ng-template *ngIf="form.get('name')?.invalid">
-            <mat-error *ngIf="form.get('name')?.errors?.['required']">값을 입력해 주세요</mat-error>
-        </ng-template>
+        <mat-error *ngIf="form.get('name')?.errors?.['required']">값을 입력해 주세요</mat-error>
     </mat-form-field>
     <mat-form-field>
         <mat-label>생년월일</mat-label>
         <input matInput [matDatepicker]="picker" required>
-        <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        <ng-template *ngIf="form.get('birth')?.invalid">
-            <mat-error *ngIf="form.get('birth')?.errors?.['required']">값을 입력해 주세요</mat-error>
-        </ng-template>
+        <mat-error *ngIf="form.get('birth')?.errors?.['required']">값을 입력해 주세요</mat-error>
     </mat-form-field>
     <mat-form-field>
         <mat-label>주소</mat-label>
         <input matInput formControlName="addr" required>
-        <ng-template *ngIf="form.get('addr')?.invalid">
-            <mat-error *ngIf="form.get('addr')?.errors?.['required']">값을 입력해 주세요</mat-error>
-            <mat-error *ngIf="form.get('addr')?.errors?.['minlength']">주소는 최소 6자리입니다</mat-error>
-        </ng-template>
+        <mat-error *ngIf="form.get('addr')?.errors?.['required']">값을 입력해 주세요</mat-error>
+        <mat-error *ngIf="form.get('addr')?.errors?.['minlength']">주소는 최소 6자리입니다</mat-error>
     </mat-form-field>
     <mat-form-field>
         <mat-label>e-mail</mat-label>
-        <input matInput type="email" formControlName="id" required>
-        <ng-template *ngIf="form.get('id')?.invalid">
-            <mat-error *ngIf="form.get('id')?.errors?.['required']">값을 입력해 주세요</mat-error>
-            <mat-error *ngIf="form.get('id')?.errors?.['email']">올바른 e-mail을 입력해 주세요</mat-error>
-        </ng-template>
+        <input matInput type="email" formControlName="email" required>
+        <mat-error *ngIf="form.get('email')?.errors?.['required']">값을 입력해 주세요</mat-error>
+        <mat-error *ngIf="form.get('email')?.errors?.['email']">올바른 e-mail을 입력해 주세요</mat-error>
     </mat-form-field>
     <mat-form-field>
         <mat-label>PW</mat-label>
@@ -38,40 +29,32 @@
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-        <ng-template *ngIf="form.get('pw')?.invalid">
-            <mat-error *ngIf="form.get('pw')?.errors?.['required']">값을 입력해 주세요</mat-error>
-            <mat-error *ngIf="form.get('pw')?.errors?.['minlength']">비밀번호는 최소 10자리입니다</mat-error>
-        </ng-template>
+        <mat-error *ngIf="form.get('pw')?.errors?.['required']">값을 입력해 주세요</mat-error>
+        <mat-error *ngIf="form.get('pw')?.errors?.['minlength']">비밀번호는 최소 10자리입니다</mat-error>
     </mat-form-field>
     <mat-form-field>
         <mat-label>가게 이름</mat-label>
         <input matInput formControlName="shopName" required>
-        <ng-template *ngIf="form.get('shopName')?.invalid">
-            <mat-error *ngIf="form.get('shopName')?.errors?.['required']">값을 입력해 주세요</mat-error>
-        </ng-template>
+        <mat-error *ngIf="form.get('shopName')?.errors?.['required']">값을 입력해 주세요</mat-error>
     </mat-form-field>
     <div> <!--formArrayName="menus"-->
-        <button mat-fab (click)="newFoodForm()"><mat-icon>plus</mat-icon></button>
+        <button mat-fab (click)="newFoodForm()"><mat-icon>add</mat-icon></button>
         <div *ngFor="let foodForm of menusForm.controls; let i = index">
             <form [formGroup]="toFormGroup(foodForm)">
                 <mat-form-field>
                     <mat-label>음식 이름</mat-label>
                     <input matInput formControlName="name" required>
-                    <ng-template *ngIf="toFormGroup(foodForm).get('name')?.invalid">
-                        <mat-error *ngIf="toFormGroup(foodForm).get('name')?.errors?.['required']">값을 입력해 주세요</mat-error>
-                    </ng-template>
+                    <mat-error *ngIf="toFormGroup(foodForm).get('name')?.errors?.['required']">값을 입력해 주세요</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>음식 가격</mat-label>
                     <input matInput type="number" formControlName="price" required>
                     <span matTextPrefix>₩&nbsp;</span>
-                    <ng-template *ngIf="toFormGroup(foodForm).get('price')?.invalid">
-                        <mat-error *ngIf="toFormGroup(foodForm).get('price')?.errors?.['required']">값을 입력해 주세요</mat-error>
-                    </ng-template>
+                    <mat-error *ngIf="toFormGroup(foodForm).get('price')?.errors?.['required']">값을 입력해 주세요</mat-error>
                 </mat-form-field>
             </form>
         </div>
     </div>
-    <button type="submit" mat-raised-button [disabled]="form.invalid || form.untouched" color="accent">회원가입</button>
+    <button type="submit" mat-raised-button [disabled]="form.untouched || form.invalid" color="accent">회원가입</button>
     <button mat-button type="reset" (click)="form.reset()">초기화</button>
 </form>

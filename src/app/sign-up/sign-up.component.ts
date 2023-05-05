@@ -12,17 +12,19 @@ import { Router } from '@angular/router';
 export class SignUpComponent {
   form = new FormGroup({
     name: new FormControl('', Validators.required),
-    birth: new FormControl<Date | null>(null, Validators.required),
+    birth: new FormControl<Date>(new Date(), Validators.required),
     addr: new FormControl('', [Validators.required, Validators.minLength(6)]),
     money: new FormControl(0, [Validators.required, Validators.min(1000)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     pw: new FormControl('', [Validators.required, Validators.minLength(10)])
   });
-  hide = true;
+  hide = true
 
   constructor(private auth: Auth, private firestore: Firestore, private router: Router) {}
 
   async signUp() {
+    if(this.form.invalid) return
+    
     let cred = await createUserWithEmailAndPassword(this.auth, this.form.get('email')?.value ?? '', this.form.get('pw')?.value ?? '');
 
     let uid = cred.user.uid;

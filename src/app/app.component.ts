@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Auth, authState } from '@angular/fire/auth';
+import { Auth, authState, signOut } from '@angular/fire/auth';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 
 @Component({
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit {
   ];
   uid: Observable<string | undefined>;
 
-  constructor(private auth: Auth, private firestore: Firestore) {
+  constructor(private auth: Auth, private firestore: Firestore, private router: Router) {
     this.uid = authState(this.auth).pipe(map(user => user?.uid));
   }
 
@@ -36,4 +37,6 @@ export class AppComponent implements OnInit {
         }
       });
   }
+
+  logout() { signOut(this.auth); this.router.navigateByUrl('/login') }
 }

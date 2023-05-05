@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class OwnerRegisterComponent {
   form = new FormGroup({
     name: new FormControl('', Validators.required),
-    birth: new FormControl<Date | null>(null, Validators.required),
+    birth: new FormControl<Date>(new Date(), Validators.required),
     addr: new FormControl('', [Validators.required, Validators.minLength(6)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     pw: new FormControl('', [Validators.required, Validators.minLength(10)]),
@@ -46,6 +46,8 @@ export class OwnerRegisterComponent {
   
 
   async register() {
+    if(this.form.invalid) { console.log(this.form.value); return; }
+
     let cred = await createUserWithEmailAndPassword(this.auth, this.form.get('email')?.value ?? '', this.form.get('pw')?.value ?? '');
 
     let uid = cred.user.uid;
