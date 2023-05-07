@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, UserCredential } from '@angular/fire/auth';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -19,7 +19,12 @@ export class LoginComponent {
   constructor(private auth: Auth, private firestore: Firestore, private router: Router) {}
 
   async login() {
-    let cred = await signInWithEmailAndPassword(this.auth, this.form.get('id')?.value, this.form.get('pw')?.value);
+    let cred = await signInWithEmailAndPassword(this.auth, this.form.get('id')?.value, this.form.get('pw')?.value)
+      .catch(error => console.error(`${error.code}: ${error.message}`));
+    if((cred as UserCredential).user == undefined) return
+
+    cred = cred as UserCredential
+
     const uid = cred.user.uid;
 
     let memberSnap = await getDoc(doc(this.firestore, `members/${uid}`));

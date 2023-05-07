@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, UserCredential, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,7 +25,11 @@ export class SignUpComponent {
   async signUp() {
     if(this.form.invalid) return
     
-    let cred = await createUserWithEmailAndPassword(this.auth, this.form.get('email')?.value ?? '', this.form.get('pw')?.value ?? '');
+    let cred = await createUserWithEmailAndPassword(this.auth, this.form.get('email')?.value ?? '', this.form.get('pw')?.value ?? '')
+      .catch(error => console.error(`${error.code}: ${error.message}`))
+    if((cred as UserCredential).user == undefined) return
+
+    cred = cred as UserCredential
 
     let uid = cred.user.uid;
 
