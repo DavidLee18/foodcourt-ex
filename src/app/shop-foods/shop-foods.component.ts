@@ -40,9 +40,8 @@ export class ShopFoodsComponent {
 
     uid.subscribe(u => {
       this.foods?.subscribe(async fs => {
-        if (!u) { console.error('not logged in'); await this.router.navigateByUrl('/login'); return }
         let order: Order = {
-          memberId: u,
+          memberId: u!,
           ownerId: this.ownerId,
           when: new Date(),
           foods: []

@@ -38,5 +38,8 @@ export class AppComponent implements OnInit {
       });
   }
 
-  logout() { signOut(this.auth); this.router.navigateByUrl('/login') }
+  logout() {
+    signOut(this.auth).catch(error => console.error(`${error.code} ${error.message}`))
+    this.router.navigateByUrl('/login')
+  }
 }
