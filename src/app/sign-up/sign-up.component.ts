@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class SignUpComponent {
   form = new FormGroup({
     name: new FormControl('', Validators.required),
-    birth: new FormControl<Date>(new Date(), Validators.required),
+    birth: new FormControl(new Date(), Validators.required),
     addr: new FormControl('', [Validators.required, Validators.minLength(6)]),
     money: new FormControl(0, [Validators.required, Validators.min(1000)]),
     email: new FormControl('', [Validators.required, Validators.email]),

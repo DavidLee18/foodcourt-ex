@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { Firestore, addDoc, collection, doc, setDoc } from '@angular/fire/firestore';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class OwnerRegisterComponent {
   form = new FormGroup({
     name: new FormControl('', Validators.required),
-    birth: new FormControl<Date>(new Date(), Validators.required),
+    birth: new FormControl(new Date(), Validators.required),
     addr: new FormControl('', [Validators.required, Validators.minLength(6)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     pw: new FormControl('', [Validators.required, Validators.minLength(10)]),
@@ -43,7 +44,12 @@ export class OwnerRegisterComponent {
   public get menusForm() {
     return this.form.get('menus') as FormArray;
   }
-  
+
+  // addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+  //   console.log(`${type}: ${event.value}`)
+  //   // this.form.get('birth')?.setValue(event.value)
+  //   console.log(`form: ${this.form.get('birth')?.value}`)
+  // }
 
   async register() {
     if(this.form.invalid) { console.log(this.form.value); return; }

@@ -18,6 +18,7 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { ko } from 'date-fns/locale'
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     BrowserAnimationsModule,
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'ko' },
+    { provide: MAT_DATE_LOCALE, useValue: ko },
   ],
   bootstrap: [AppComponent]
 })

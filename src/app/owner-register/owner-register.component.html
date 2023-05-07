@@ -6,7 +6,7 @@
     </mat-form-field>
     <mat-form-field>
         <mat-label>생년월일</mat-label>
-        <input matInput [matDatepicker]="picker" required>
+        <input matInput [matDatepicker]="picker" formControlName="birth" required>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="form.get('birth')?.errors?.['required']">값을 입력해 주세요</mat-error>
