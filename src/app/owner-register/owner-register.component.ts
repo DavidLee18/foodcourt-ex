@@ -4,6 +4,8 @@ import { Firestore, addDoc, collection, doc, setDoc } from '@angular/fire/firest
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { setError } from '../state/error-description.action';
 
 @Component({
   selector: 'app-owner-register',
@@ -28,7 +30,12 @@ export class OwnerRegisterComponent {
   hide = true;
   foodIndex = 0;
 
-  constructor(private auth: Auth, private firestore: Firestore, private router: Router) {}
+  constructor(
+    private auth: Auth,
+    private firestore: Firestore,
+    private router: Router,
+    private store: Store
+  ) {}
 
   newFoodForm() {
     this.menusForm.push(new FormGroup({
@@ -55,7 +62,7 @@ export class OwnerRegisterComponent {
     if(this.form.invalid) { console.log(this.form.value); return; }
 
     let cred = await createUserWithEmailAndPassword(this.auth, this.form.get('email')?.value ?? '', this.form.get('pw')?.value ?? '')
-      .catch(error => console.error(`${error.code}: ${error.message}`))
+      .catch(error => this.store.dispatch(setError({ errorCode: error.code, errorMessage: error.message })))
     if((cred as UserCredential).user == undefined) return
 
     cred = cred as UserCredential

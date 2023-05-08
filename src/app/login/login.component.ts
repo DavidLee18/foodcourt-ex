@@ -3,6 +3,8 @@ import { Auth, signInWithEmailAndPassword, UserCredential } from '@angular/fire/
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { setError } from '../state/error-description.action';
 
 @Component({
   selector: 'app-login',
@@ -16,11 +18,16 @@ export class LoginComponent {
   });
   hide = true;
 
-  constructor(private auth: Auth, private firestore: Firestore, private router: Router) {}
+  constructor(
+    private auth: Auth,
+    private firestore: Firestore,
+    private router: Router,
+    private store: Store
+  ) {}
 
   async login() {
     let cred = await signInWithEmailAndPassword(this.auth, this.form.get('id')?.value, this.form.get('pw')?.value)
-      .catch(error => console.error(`${error.code}: ${error.message}`));
+      .catch(error => this.store.dispatch(setError({ errorCode: error.code, errorMessage: error.message })))
     if((cred as UserCredential).user == undefined) return
 
     cred = cred as UserCredential

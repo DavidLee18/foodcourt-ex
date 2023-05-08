@@ -18,18 +18,16 @@ export class ShopFoodsComponent {
   orderComplete = false;
   readonly atLeastOne: ValidatorFn = control => {
     let array = control as FormArray;
-    if(array.controls.every(c => c.value === 0)) return { 'atLeastOne': true };
+    if (array.controls.every(c => c.value === 0)) return { 'atLeastOne': true };
     else return null;
   }
 
   constructor(private firestore: Firestore, private route: ActivatedRoute, private auth: Auth, private router: Router) {
-    route.params.subscribe(ps => {
-      this.ownerId = ps['id'];
-      this.foods = collectionSnapshots(collection(firestore, 'shops', this.ownerId, 'menus'))
-        .pipe(map(docs => docs.map(doc => doc.data() as Food)))
-      this.foods.subscribe(foods_ => {
-        this.form = new FormArray(foods_.map(_ => new FormControl(0, Validators.min(0))), this.atLeastOne);
-      })
+    this.ownerId = route.snapshot.params['id']
+    this.foods = collectionSnapshots(collection(firestore, 'shops', this.ownerId, 'menus'))
+      .pipe(map(docs => docs.map(doc => doc.data() as Food)))
+    this.foods.subscribe(foods_ => {
+      this.form = new FormArray(foods_.map(_ => new FormControl(0, Validators.min(0))), this.atLeastOne)
     })
   }
 

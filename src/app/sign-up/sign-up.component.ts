@@ -3,6 +3,8 @@ import { Auth, UserCredential, createUserWithEmailAndPassword } from '@angular/f
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { setError } from '../state/error-description.action';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,13 +22,18 @@ export class SignUpComponent {
   });
   hide = true
 
-  constructor(private auth: Auth, private firestore: Firestore, private router: Router) {}
+  constructor(
+    private auth: Auth,
+    private firestore: Firestore,
+    private router: Router,
+    private store: Store
+  ) {}
 
   async signUp() {
     if(this.form.invalid) return
     
     let cred = await createUserWithEmailAndPassword(this.auth, this.form.get('email')?.value ?? '', this.form.get('pw')?.value ?? '')
-      .catch(error => console.error(`${error.code}: ${error.message}`))
+      .catch(error => this.store.dispatch(setError({ errorCode: error.code, errorMessage: error.message })))
     if((cred as UserCredential).user == undefined) return
 
     cred = cred as UserCredential

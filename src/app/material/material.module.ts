@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDateFnsModule } from '@angular/material-date-fns-adapter'
+import { MatDialogModule } from '@angular/material/dialog'
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { MatDateFnsModule } from '@angular/material-date-fns-adapter'
     MatExpansionModule,
     // MatNativeDateModule,
     MatDateFnsModule,
+    MatDialogModule,
   ]
 })
 export class MaterialModule {}

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent, ErrorDialog } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -18,7 +18,9 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { ko } from 'date-fns/locale'
+import { ko } from 'date-fns/locale';
+import { StoreModule } from '@ngrx/store'
+import { errorDescriptionReducer } from './state/error-description.reducer';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { ko } from 'date-fns/locale'
     ShopFoodsComponent,
     OrderComponent,
     OwnerOrdersComponent,
-    OwnerRegisterComponent
+    OwnerRegisterComponent,
+    ErrorDialog,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { ko } from 'date-fns/locale'
     provideMessaging(() => getMessaging()),
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    StoreModule.forRoot({ errorDescription: errorDescriptionReducer }),
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: ko },

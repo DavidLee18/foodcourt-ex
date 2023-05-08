@@ -19,24 +19,22 @@ export class OrderComponent {
   shopName?: string
 
   constructor(private route: ActivatedRoute, private firestore: Firestore, private auth: Auth) {
-    route.params.subscribe(ps => {
-      this.ownerId = ps['id']
+    this.ownerId = route.snapshot.params['id']
 
-      user(auth).subscribe(async user_ => {
-        this.uid = user_?.uid;
-        let orderQuery = query(collection(firestore, 'orders'), 
-          where('memberId', '==', this.uid),
-          where('ownerId', '==', this.ownerId),
-          orderBy('when', 'desc'), limit(1))
-        let order = (await getDocs(orderQuery)).docs.map(d => d.data())[0]
-        this.order = order as Order
+    user(auth).subscribe(async user_ => {
+      this.uid = user_?.uid;
+      let orderQuery = query(collection(firestore, 'orders'),
+        where('memberId', '==', this.uid),
+        where('ownerId', '==', this.ownerId),
+        orderBy('when', 'desc'), limit(1))
+      let order = (await getDocs(orderQuery)).docs.map(d => d.data())[0]
+      this.order = order as Order
 
-        let shopQuery = query(collection(firestore, 'shops'), where('ownerId', '==', this.order.ownerId), limit(1))
+      let shopQuery = query(collection(firestore, 'shops'), where('ownerId', '==', this.order.ownerId), limit(1))
 
-        let shop = (await getDocs(shopQuery)).docs.map(d => d.data())[0]
+      let shop = (await getDocs(shopQuery)).docs.map(d => d.data())[0]
 
-        this.shopName = shop['name']
-      })
+      this.shopName = shop['name']
     })
   }
 
