@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci
+      - run: npm ci --no-package-lock
       - run: npm run build --if-present
       # - run: npm run deploy
       - uses: w9jds/firebase-action@v11.30.0
