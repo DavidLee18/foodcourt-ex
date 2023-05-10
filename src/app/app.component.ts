@@ -1,21 +1,33 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Auth, authState, signOut } from '@angular/fire/auth';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 import { ErrorDescription } from './state/error-description.reducer';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { setError } from './state/error-description.action';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatListModule } from '@angular/material/list';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     standalone: true,
-    imports: [NgIf, NgFor, RouterLink, RouterOutlet, AsyncPipe]
+    imports: [
+      CommonModule,
+      RouterModule,
+      MatToolbarModule,
+      MatIconModule,
+      MatButtonModule,
+      MatSidenavModule,
+      MatListModule,
+    ]
 })
 export class AppComponent {
   title = 'foodcourt-ex';
