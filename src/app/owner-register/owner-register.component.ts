@@ -1,16 +1,23 @@
 import { Component } from '@angular/core';
 import { Auth, UserCredential, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { Firestore, addDoc, collection, doc, setDoc } from '@angular/fire/firestore';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { FormArray, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { setError } from '../state/error-description.action';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { NgIf, NgFor } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-owner-register',
-  templateUrl: './owner-register.component.html',
-  styleUrls: ['./owner-register.component.css']
+    selector: 'app-owner-register',
+    templateUrl: './owner-register.component.html',
+    styleUrls: ['./owner-register.component.css'],
+    standalone: true,
+    imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, NgIf, MatDatepickerModule, MatButtonModule, MatIconModule, NgFor]
 })
 export class OwnerRegisterComponent {
   form = new FormGroup({

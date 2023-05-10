@@ -1,15 +1,22 @@
 import { Component } from '@angular/core';
 import { Firestore, addDoc, collection, collectionSnapshots, onSnapshot } from '@angular/fire/firestore';
-import { FormArray, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ValidatorFn, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Food, Order } from '../model';
 import { Auth, user } from '@angular/fire/auth';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatListModule } from '@angular/material/list';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-shop-foods',
-  templateUrl: './shop-foods.component.html',
-  styleUrls: ['./shop-foods.component.css']
+    selector: 'app-shop-foods',
+    templateUrl: './shop-foods.component.html',
+    styleUrls: ['./shop-foods.component.css'],
+    standalone: true,
+    imports: [NgIf, ReactiveFormsModule, MatListModule, NgFor, MatFormFieldModule, MatInputModule, MatButtonModule, AsyncPipe]
 })
 export class ShopFoodsComponent {
   form?: FormArray<FormControl<number | null>>;

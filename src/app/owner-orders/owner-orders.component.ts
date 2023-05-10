@@ -3,11 +3,15 @@ import { Auth, user } from '@angular/fire/auth';
 import { Firestore, QueryDocumentSnapshot, collection, collectionSnapshots, orderBy, query, where } from '@angular/fire/firestore';
 import { Order } from '../model';
 import { Observable, map } from 'rxjs';
+import { NgFor, AsyncPipe, JsonPipe, DatePipe } from '@angular/common';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
-  selector: 'app-owner-orders',
-  templateUrl: './owner-orders.component.html',
-  styleUrls: ['./owner-orders.component.css']
+    selector: 'app-owner-orders',
+    templateUrl: './owner-orders.component.html',
+    styleUrls: ['./owner-orders.component.css'],
+    standalone: true,
+    imports: [MatExpansionModule, NgFor, AsyncPipe, JsonPipe, DatePipe]
 })
 export class OwnerOrdersComponent {
   orderDocs?: Observable<QueryDocumentSnapshot[]>

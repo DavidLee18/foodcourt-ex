@@ -1,17 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { StoreModule } from '@ngrx/store';
+import { errorDescriptionReducer } from './state/error-description.reducer';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
+    imports: [
+        RouterTestingModule,
+        StoreModule.forRoot({ errorDescription: errorDescriptionReducer }),
         AppComponent
-      ],
-    }).compileComponents();
+    ]
+}).compileComponents();
   });
 
   it('should create the app', () => {

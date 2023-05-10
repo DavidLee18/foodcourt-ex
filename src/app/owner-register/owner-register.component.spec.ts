@@ -8,8 +8,8 @@ describe('OwnerRegisterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OwnerRegisterComponent ]
-    })
+    imports: [OwnerRegisterComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(OwnerRegisterComponent);

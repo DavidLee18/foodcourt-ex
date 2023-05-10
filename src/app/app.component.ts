@@ -1,17 +1,21 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Auth, authState, signOut } from '@angular/fire/auth';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 import { ErrorDescription } from './state/error-description.reducer';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { setError } from './state/error-description.action';
+import { MatButtonModule } from '@angular/material/button';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    standalone: true,
+    imports: [NgIf, NgFor, RouterLink, RouterOutlet, AsyncPipe]
 })
 export class AppComponent {
   title = 'foodcourt-ex';
@@ -58,15 +62,17 @@ export class AppComponent {
 }
 
 @Component({
-  selector: 'error-dialog',
-  template: `<h1 mat-dialog-title>Error Occured</h1>
+    selector: 'error-dialog',
+    template: `<h1 mat-dialog-title>Error Occured</h1>
   <div mat-dialog-content>
     <h2>{{ data.errorCode }}</h2> <br>
     {{ data.errorMessage }}
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="onClick()">확인</button>
-  </div>`
+  </div>`,
+    standalone: true,
+    imports: [MatDialogModule, MatButtonModule]
 })
 export class ErrorDialog {
   constructor(
