@@ -27,6 +27,7 @@ import { MatListModule } from '@angular/material/list';
       MatButtonModule,
       MatSidenavModule,
       MatListModule,
+      MatDialogModule,
     ]
 })
 export class AppComponent {

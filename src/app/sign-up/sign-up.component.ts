@@ -11,13 +11,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDateFnsModule } from '@angular/material-date-fns-adapter';
 
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.component.html',
     styleUrls: ['./sign-up.component.css'],
     standalone: true,
-    imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, NgIf, MatDatepickerModule, MatButtonModule, MatIconModule]
+    imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, NgIf, MatDatepickerModule, MatButtonModule, MatIconModule, MatDateFnsModule,]
 })
 export class SignUpComponent {
   form = new FormGroup({

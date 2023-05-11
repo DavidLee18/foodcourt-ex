@@ -8,16 +8,26 @@ import { Store } from '@ngrx/store';
 import { setError } from '../state/error-description.action';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDateFnsModule } from '@angular/material-date-fns-adapter';
 
 @Component({
     selector: 'app-owner-register',
     templateUrl: './owner-register.component.html',
     styleUrls: ['./owner-register.component.css'],
     standalone: true,
-    imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, NgIf, MatDatepickerModule, MatButtonModule, MatIconModule, NgFor]
+    imports: [
+      ReactiveFormsModule,
+      MatFormFieldModule,
+      MatInputModule,
+      CommonModule,
+      MatDatepickerModule,
+      MatButtonModule,
+      MatIconModule,
+      MatDateFnsModule,
+    ]
 })
 export class OwnerRegisterComponent {
   form = new FormGroup({
