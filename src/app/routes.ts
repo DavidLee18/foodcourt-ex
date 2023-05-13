@@ -58,7 +58,7 @@ const isOwner: CanActivateFn = (next, state) => {
   }))
 }
 
-const routes: Route[] = [
+export const routes: Route[] = [
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'owner/register', component: OwnerRegisterComponent },
@@ -69,9 +69,3 @@ const routes: Route[] = [
   { path: 'owner/orders', component: OwnerOrdersComponent, canActivate: [redirectUnauthorized, isOwner] },
   { path: '**', redirectTo: 'login' }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
